@@ -8,7 +8,7 @@ function arteItem(key, nome){
   el.dataset.asset = key;
   el.setAttribute('role', 'img');
   el.setAttribute('aria-label', nome || key);
-  const dims = frame.sheet === 'catalogo' ? [1145,1374] : [1448,1086];
+  const dims = frame.sheet === 'catalogo' ? [1145,1374] : frame.sheet === 'moveis' ? [1536,1024] : [1448,1086];
   const size = Math.max(frame.w,frame.h);
   const windowEl = document.createElement('span');
   windowEl.className = 'arte-recorte';
@@ -19,3 +19,5 @@ function arteItem(key, nome){
   img.style.cssText = 'width:'+100*dims[0]/frame.w+'%;height:'+100*dims[1]/frame.h+'%;left:'+(-100*frame.x/frame.w)+'%;top:'+(-100*frame.y/frame.h)+'%;';
   windowEl.appendChild(img); el.appendChild(windowEl); return el;
 }
+
+['almofada','poltrona','estante','planta','mesa','luminaria'].forEach((key,i)=>PISTACHIO_ASSETS[key]={sheet:'moveis',x:(i%3)*512,y:Math.floor(i/3)*512,w:512,h:512});
