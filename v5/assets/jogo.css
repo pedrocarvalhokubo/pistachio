@@ -11,3 +11,7 @@ body[data-tab=casa] #main{display:flex;flex-direction:column;gap:0}body[data-tab
 .pet.has-outfit{mix-blend-mode:normal;isolation:isolate}.outfit-sprite{filter:url(#sprite-paper);clip-path:inset(0 0 6% 0)}
 
 .activity.showing-help>p.meta{display:none}.activity.showing-help .question{font-size:1.8rem;margin:5px 0}.activity.showing-help .math-help{margin-top:5px;font-size:.85rem}.activity form[hidden]{display:none}
+
+.pet img,.catcher img{mix-blend-mode:normal}
+
+.keyboard-open .activity>p.meta{display:none}.keyboard-open .question{font-size:1.3rem;margin:2px 0}.keyboard-open .activity{padding:6px}.keyboard-open .activity .field{margin-top:2px}.keyboard-open .activity input{min-height:40px;padding:6px}.keyboard-open #answer-form>button{margin-top:5px!important;min-height:40px;padding:6px}.keyboard-open #hint{display:none}.keyboard-open .sheet-head{padding:2px 12px}.keyboard-open .app-page{gap:3px}
