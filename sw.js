@@ -1,4 +1,4 @@
-const CACHE = 'pistachio-v2-1';
+const CACHE = 'pistachio-v3-arte-b';
 const ARQUIVOS = [
   './',
   './index.html',
@@ -6,7 +6,10 @@ const ARQUIVOS = [
   './icone-180.png',
   './icone-192.png',
   './icone-512.png',
-  './robots.txt'
+  './robots.txt',
+  './assets/arte-b.js',
+  './assets/estilo-b-catalogo.png',
+  './assets/estilo-b-cuidados.png'
 ];
 
 self.addEventListener('install', (e) => {

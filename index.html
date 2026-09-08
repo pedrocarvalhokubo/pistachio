@@ -838,6 +838,24 @@
   }
 
   [hidden]{ display: none !important; }
+
+/* Ilustrações próprias: o mesmo recorte é usado na loja, na roupa e no arrasto. */
+.arte-item { width:64px; height:64px; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; vertical-align:middle; pointer-events:none; }
+.arte-recorte { display:block; position:relative; overflow:hidden; }
+.arte-recorte img { position:absolute; max-width:none; display:block; }
+.botao-cuidado .arte-item { width:42px; height:42px; }
+.emoji-item,.emoji-loja,.emoji-opcao { display:inline-flex; align-items:center; justify-content:center; }
+.clone-arrasto .arte-item { width:64px; height:64px; }
+.item-passeio .arte-item { width:48px; height:48px; }
+.overlay-roupinha .arte-item { width:76px; height:76px; }
+.overlay-roupinha.rp-oculos { top:65px; }
+.overlay-roupinha.rp-laco { top:17px; left:68%; }
+.overlay-roupinha.rp-cachecol { top:104px; }
+.overlay-roupinha.rp-flor { top:24px; left:72%; }
+.overlay-roupinha.rp-borboleta { top:25px; left:75%; }
+.overlay-roupinha.rp-chapeu { top:-8px; }
+.overlay-roupinha.rp-laco .arte-item,.overlay-roupinha.rp-flor .arte-item,.overlay-roupinha.rp-borboleta .arte-item { width:46px; height:46px; }
+.nome-item { font-size:13px; } .badge-qtd { font-size:12px; }
 </style>
 
 <div class="tela">
@@ -1064,6 +1082,7 @@
   </div>
 </div>
 
+<script src="./assets/arte-b.js"></script>
 <script>
 (function(){
   "use strict";
@@ -1112,24 +1131,282 @@
   const FALA_NASCIMENTO = "BELA! Pi pi pi!! 🎉";
   const FALA_CRESCIMENTO = "Piii~ Bela, olha eu!";
 
+  Object.entries({comida:"maca-1",banho:"sabao",sujeira:"esponja",roupinha:"chapeu-5",passeio:"borboleta",mercadinho:"cookie-1"}).forEach(function([acao, asset]){
+    const el = document.querySelector('[data-acao="'+acao+'"] .emoji');
+    if(el) el.replaceChildren(arteItem(asset, ""));
+  });
+
   const CATALOGO_COMIDAS = [
-    { id: "maca",     emoji: "🍎", nome: "Maçã",     preco: 2, fome: 100 },
-    { id: "cenoura",  emoji: "🥕", nome: "Cenoura",  preco: 2, fome: 100 },
-    { id: "morango",  emoji: "🍓", nome: "Morango",  preco: 3, fome: 100 },
-    { id: "bolinho",  emoji: "🧁", nome: "Bolinho",  preco: 5, fome: 100 },
-    { id: "sorvete",  emoji: "🍦", nome: "Sorvete",  preco: 6, fome: 100 }
-  ];
+  {
+    "id": "maca",
+    "asset": "maca-1",
+    "nome": "Maçã",
+    "preco": 2,
+    "fome": 100
+  },
+  {
+    "id": "cenoura",
+    "asset": "cenoura",
+    "nome": "Cenoura",
+    "preco": 2,
+    "fome": 100
+  },
+  {
+    "id": "morango",
+    "asset": "morango",
+    "nome": "Morango",
+    "preco": 3,
+    "fome": 100
+  },
+  {
+    "id": "bolinho",
+    "asset": "bolinho",
+    "nome": "Bolinho",
+    "preco": 5,
+    "fome": 100
+  },
+  {
+    "id": "sorvete",
+    "asset": "sorvete",
+    "nome": "Sorvete",
+    "preco": 6,
+    "fome": 100
+  },
+  {
+    "id": "maca2",
+    "asset": "maca-2",
+    "nome": "Maçã verde",
+    "preco": 2,
+    "fome": 100
+  },
+  {
+    "id": "maca3",
+    "asset": "maca-3",
+    "nome": "Maçã amarela",
+    "preco": 2,
+    "fome": 100
+  },
+  {
+    "id": "maca4",
+    "asset": "maca-4",
+    "nome": "Meia maçã",
+    "preco": 2,
+    "fome": 100
+  },
+  {
+    "id": "maca5",
+    "asset": "maca-5",
+    "nome": "Fatias de maçã",
+    "preco": 2,
+    "fome": 100
+  },
+  {
+    "id": "banana1",
+    "asset": "banana-1",
+    "nome": "Banana",
+    "preco": 2,
+    "fome": 100
+  },
+  {
+    "id": "banana2",
+    "asset": "banana-2",
+    "nome": "Banana descascada",
+    "preco": 2,
+    "fome": 100
+  },
+  {
+    "id": "banana3",
+    "asset": "banana-3",
+    "nome": "Trio de bananas",
+    "preco": 2,
+    "fome": 100
+  },
+  {
+    "id": "banana4",
+    "asset": "banana-4",
+    "nome": "Rodelinhas",
+    "preco": 2,
+    "fome": 100
+  },
+  {
+    "id": "banana5",
+    "asset": "banana-5",
+    "nome": "Banana pequenina",
+    "preco": 2,
+    "fome": 100
+  },
+  {
+    "id": "cookie2",
+    "asset": "cookie-2",
+    "nome": "Biscoito amanteigado",
+    "preco": 3,
+    "fome": 100
+  },
+  {
+    "id": "cookie3",
+    "asset": "cookie-3",
+    "nome": "Cookie recheado",
+    "preco": 3,
+    "fome": 100
+  },
+  {
+    "id": "cookie4",
+    "asset": "cookie-4",
+    "nome": "Cookie rosinha",
+    "preco": 3,
+    "fome": 100
+  },
+  {
+    "id": "cookie5",
+    "asset": "cookie-5",
+    "nome": "Cookie com chocolate",
+    "preco": 3,
+    "fome": 100
+  }
+];
 
   const CATALOGO_ROUPINHAS = [
-    { id: 1, emoji: "🎩", nome: "Cartola",     preco: 0 },
-    { id: 2, emoji: "🎀", nome: "Laçinho",     preco: 0 },
-    { id: 3, emoji: "🧣", nome: "Cachecol",    preco: 0 },
-    { id: 4, emoji: "👑", nome: "Coroinha",    preco: 4 },
-    { id: 5, emoji: "🎓", nome: "Formatura",   preco: 4 },
-    { id: 6, emoji: "🕶️", nome: "Óculos legal", preco: 3 },
-    { id: 7, emoji: "🌸", nome: "Florzinha",   preco: 3 },
-    { id: 8, emoji: "🦋", nome: "Borboletinha", preco: 5 }
-  ];
+  {
+    "id": 1,
+    "asset": "chapeu-5",
+    "nome": "Cartola",
+    "preco": 0,
+    "pos": "chapeu"
+  },
+  {
+    "id": 2,
+    "asset": "laco",
+    "nome": "Lacinho",
+    "preco": 0,
+    "pos": "laco"
+  },
+  {
+    "id": 3,
+    "asset": "cachecol",
+    "nome": "Cachecol",
+    "preco": 0,
+    "pos": "cachecol"
+  },
+  {
+    "id": 4,
+    "asset": "coroa",
+    "nome": "Coroinha",
+    "preco": 4,
+    "pos": "chapeu"
+  },
+  {
+    "id": 5,
+    "asset": "formatura",
+    "nome": "Formatura",
+    "preco": 4,
+    "pos": "chapeu"
+  },
+  {
+    "id": 6,
+    "asset": "oculos-1",
+    "nome": "Óculos redondos",
+    "preco": 3,
+    "pos": "oculos"
+  },
+  {
+    "id": 7,
+    "asset": "flor-3",
+    "nome": "Florzinha rosa",
+    "preco": 3,
+    "pos": "flor"
+  },
+  {
+    "id": 8,
+    "asset": "borboleta",
+    "nome": "Borboletinha",
+    "preco": 5,
+    "pos": "borboleta"
+  },
+  {
+    "id": 9,
+    "asset": "chapeu-1",
+    "nome": "Chapéu pescador",
+    "preco": 3,
+    "pos": "chapeu"
+  },
+  {
+    "id": 10,
+    "asset": "chapeu-2",
+    "nome": "Boné",
+    "preco": 3,
+    "pos": "chapeu"
+  },
+  {
+    "id": 11,
+    "asset": "chapeu-3",
+    "nome": "Chapéu de sol",
+    "preco": 3,
+    "pos": "chapeu"
+  },
+  {
+    "id": 12,
+    "asset": "chapeu-4",
+    "nome": "Boina",
+    "preco": 3,
+    "pos": "chapeu"
+  },
+  {
+    "id": 13,
+    "asset": "oculos-2",
+    "nome": "Óculos quadrados",
+    "preco": 3,
+    "pos": "oculos"
+  },
+  {
+    "id": 14,
+    "asset": "oculos-3",
+    "nome": "Óculos gatinho",
+    "preco": 3,
+    "pos": "oculos"
+  },
+  {
+    "id": 15,
+    "asset": "oculos-4",
+    "nome": "Óculos ovais",
+    "preco": 3,
+    "pos": "oculos"
+  },
+  {
+    "id": 16,
+    "asset": "oculos-5",
+    "nome": "Óculos esportivos",
+    "preco": 3,
+    "pos": "oculos"
+  },
+  {
+    "id": 17,
+    "asset": "flor-1",
+    "nome": "Margarida",
+    "preco": 3,
+    "pos": "flor"
+  },
+  {
+    "id": 18,
+    "asset": "flor-2",
+    "nome": "Tulipa",
+    "preco": 3,
+    "pos": "flor"
+  },
+  {
+    "id": 19,
+    "asset": "flor-4",
+    "nome": "Girassol",
+    "preco": 3,
+    "pos": "flor"
+  },
+  {
+    "id": 20,
+    "asset": "flor-5",
+    "nome": "Campainhas",
+    "preco": 3,
+    "pos": "flor"
+  }
+];
 
   const VARIACOES_COR = [
     { id: "verdinho",  nome: "Verdinho" },
@@ -1138,11 +1415,11 @@
   ];
 
   const PASSEIO_ITENS = [
-    { emoji: "🌸", x: 20, y: 68 },
-    { emoji: "🦋", x: 72, y: 32 },
-    { emoji: "⭐", x: 46, y: 52 },
-    { emoji: "🌼", x: 82, y: 72 },
-    { emoji: "🦋", x: 14, y: 28 }
+    { asset: "flor-3", nome: "Florzinha", x: 20, y: 68 },
+    { asset: "borboleta", nome: "Borboleta", x: 72, y: 32 },
+    { asset: "estrela", nome: "Estrelinha", x: 46, y: 52 },
+    { asset: "flor-1", nome: "Margarida", x: 82, y: 72 },
+    { asset: "borboleta", nome: "Borboleta", x: 14, y: 28 }
   ];
 
   const DIAS_SEMANA = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
@@ -1651,7 +1928,8 @@
       const el = document.createElement("button");
       el.type = "button";
       el.className = "item-passeio";
-      el.textContent = item.emoji;
+      el.appendChild(arteItem(item.asset, item.nome));
+      el.setAttribute("aria-label", "Coletar " + item.nome);
       el.style.left = item.x + "%";
       el.style.top = item.y + "%";
       el.dataset.indice = String(i);
@@ -1707,7 +1985,7 @@
     el.dataset.emoji = emoji;
     const em = document.createElement("span");
     em.className = "emoji-item";
-    em.textContent = emoji;
+    em.appendChild(arteItem(emoji, nome));
     el.appendChild(em);
     const nomeEl = document.createElement("span");
     nomeEl.className = "nome-item";
@@ -1732,9 +2010,9 @@
     CATALOGO_COMIDAS.forEach(function(c){
       const qtd = estado.estoque[c.id] || 0;
       if(qtd <= 0) return;
-      wrap.appendChild(criarItemArrastavel(c.id, c.emoji, c.nome, qtd, c.fome));
+      wrap.appendChild(criarItemArrastavel(c.id, c.asset, c.nome, qtd, c.fome));
     });
-    wrap.appendChild(criarItemArrastavel("biscoito", "🍪", "Biscoitinho", null, 30));
+    wrap.appendChild(criarItemArrastavel("biscoito", "cookie-1", "Biscoitinho", null, 30));
   }
 
   function abrirComida(){
@@ -1752,7 +2030,7 @@
   function iniciarArrasto(e, comidaId, fomeValor, emoji){
     const clone = document.createElement("div");
     clone.className = "clone-arrasto";
-    clone.textContent = emoji;
+    clone.appendChild(arteItem(emoji, "Comidinha"));
     document.body.appendChild(clone);
     posicionarClone(clone, e.clientX, e.clientY);
     arrastoAtivo = { id: comidaId, fome: fomeValor, clone: clone };
@@ -1824,7 +2102,7 @@
     linha.className = "linha-loja";
     const emoji = document.createElement("span");
     emoji.className = "emoji-loja";
-    emoji.textContent = opcoes.emoji;
+    emoji.appendChild(arteItem(opcoes.emoji, opcoes.nome));
     linha.appendChild(emoji);
     const info = document.createElement("div");
     info.className = "info-loja";
@@ -1854,7 +2132,7 @@
     comidas.innerHTML = "";
     CATALOGO_COMIDAS.forEach(function(c){
       comidas.appendChild(criarLinhaLoja({
-        emoji: c.emoji, nome: c.nome, preco: c.preco,
+        emoji: c.asset, nome: c.nome, preco: c.preco,
         podeComprar: estado.estrelinhas >= c.preco,
         rotuloBotao: "Comprar",
         aoComprar: function(){ comprarComida(c); }
@@ -1866,7 +2144,7 @@
     CATALOGO_ROUPINHAS.filter(function(r){ return r.preco > 0; }).forEach(function(r){
       const possui = estado.roupinhasCompradas.indexOf(r.id) !== -1;
       roupas.appendChild(criarLinhaLoja({
-        emoji: r.emoji, nome: r.nome, preco: r.preco,
+        emoji: r.asset, nome: r.nome, preco: r.preco,
         podeComprar: !possui && estado.estrelinhas >= r.preco,
         rotuloBotao: possui ? "✔ Já tem" : "Comprar",
         aoComprar: function(){ comprarRoupinha(r); }
@@ -1912,7 +2190,8 @@
     btn.className = "opcao-roupinha" + (estado.roupinha === id ? " selecionada" : "");
     const span1 = document.createElement("span");
     span1.className = "emoji-opcao";
-    span1.textContent = emoji;
+    if(id === 0) span1.textContent = "—";
+    else span1.appendChild(arteItem(emoji, nome));
     const span2 = document.createElement("span");
     span2.textContent = nome;
     btn.appendChild(span1);
@@ -1927,7 +2206,7 @@
     wrap.appendChild(criarOpcaoRoupinha(0, "🚫", "Sem roupinha"));
     estado.roupinhasCompradas.forEach(function(id){
       const cat = CATALOGO_ROUPINHAS.filter(function(r){ return r.id === id; })[0];
-      if(cat) wrap.appendChild(criarOpcaoRoupinha(cat.id, cat.emoji, cat.nome));
+      if(cat) wrap.appendChild(criarOpcaoRoupinha(cat.id, cat.asset, cat.nome));
     });
   }
 
@@ -2112,8 +2391,9 @@
     }else{
       const cat = CATALOGO_ROUPINHAS.filter(function(r){ return r.id === estado.roupinha; })[0];
       roupinhaEl.hidden = false;
-      roupinhaEl.textContent = cat ? cat.emoji : "";
-      const posClasse = estado.roupinha === 1 ? "" : (estado.roupinha === 2 ? "rp-2" : (estado.roupinha === 3 ? "rp-3" : "rp-generic"));
+      roupinhaEl.replaceChildren();
+      if(cat) roupinhaEl.appendChild(arteItem(cat.asset, cat.nome));
+      const posClasse = cat ? "rp-" + cat.pos : "";
       roupinhaEl.className = "overlay-roupinha " + posClasse;
     }
 
