@@ -19,7 +19,7 @@ function paginate(root){
  const shell=document.createElement('div');shell.className='page-shell';
  const nav=document.createElement('div');nav.className='page-nav';nav.setAttribute('aria-label','Páginas desta tela');
  root.replaceChildren(shell,nav);
- const height=root.clientHeight-54;let page;
+ const height=shell.clientHeight;let page;
  function next(){page=document.createElement('section');page.className='app-page';shell.appendChild(page);return page;}
  next();
  for(const node of nodes){page.appendChild(node);if(page.scrollHeight>height+2&&page.children.length>1){page.removeChild(node);next().appendChild(node);}if(page.scrollHeight>height+2){page.classList.add('dense-page');}}
