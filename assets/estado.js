@@ -31,7 +31,7 @@ function normalize(raw){
 }
 function checksum(s){let h=2166136261;for(let i=0;i<s.length;i++)h=Math.imul(h^s.charCodeAt(i),16777619);return (h>>>0).toString(16);}
 function pack(state){const data=normalize(state);return JSON.stringify({format:'pistachio',version:4,savedAt:Date.now(),data,checksum:checksum(JSON.stringify(data))});}
-function unpack(text){if(typeof text!=='string'||text.length>500000)throw Error('Arquivo muito grande ou vazio.');const d=JSON.parse(text);if(d.format==='pistachio'){if(d.version!==4||!plain(d.data)||checksum(JSON.stringify(d.data))!==d.checksum)throw Error('Esta cópia está incompleta ou é de outra versão.');return {state:normalize(d.data),savedAt:int(d.savedAt)};}return {state:normalize(d),savedAt:int(d.ultimaVisita)};}
+function unpack(text){if(typeof text!=='string'||text.length>500000)throw Error('Arquivo muito grande ou vazio.');const d=JSON.parse(text);if(d.format==='pistachio'){if(d.version!==4||!plain(d.data)||checksum(JSON.stringify(d.data))!==d.checksum)throw Error('Esta cópia está incompleta ou é de outra versão.');return {state:normalize(d.data),savedAt:int(d.savedAt,0,Date.now()+60000)};}return {state:normalize(d),savedAt:int(d.ultimaVisita,0,Date.now()+60000)};}
 function repository(storage){
  let last=null,blocked=false;
  return {
