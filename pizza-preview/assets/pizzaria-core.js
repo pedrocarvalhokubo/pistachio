@@ -20,7 +20,7 @@ function normalize(raw){const p=fresh();if(!raw||typeof raw!=='object')return p;
  if(raw.last&&typeof raw.last==='object')p.last={score:integer(raw.last.score,0,100),pay:integer(raw.last.pay),tip:integer(raw.last.tip),name:recipe(raw.last.recipe).name,recipe:recipe(raw.last.recipe).id,client:integer(raw.last.client,0,3),notes:Array.isArray(raw.last.notes)?raw.last.notes.filter(x=>typeof x==='string').slice(0,4).map(x=>x.slice(0,150)):[]};
  return p;
 }
-function newOrder(p,rng=Math.random){if(p.active)return p.active;const unlocked=RECIPES.slice(0,Math.min(RECIPES.length,p.served+1));const r=unlocked[Math.min(unlocked.length-1,Math.floor(rng()*unlocked.length))];p.active={id:p.served+1,recipe:r.id,client:p.served%4,slices:p.served<2?6:[4,6,8][p.served%3],stage:'order',bakeMs:0,used:{},sauce:[],cheese:[],toppings:[],cuts:[]};return p.active;}
+function newOrder(p,rng=Math.random){if(p.active)return p.active;const unlocked=RECIPES.slice(0,Math.min(RECIPES.length,p.served+1));const r=p.served<RECIPES.length?RECIPES[p.served]:unlocked[Math.min(unlocked.length-1,Math.floor(rng()*unlocked.length))];p.active={id:p.served+1,recipe:r.id,client:p.served%4,slices:p.served<2?6:[4,6,8][p.served%3],stage:'order',bakeMs:0,used:{},sauce:[],cheese:[],toppings:[],cuts:[]};return p.active;}
 function needs(a){return ['massa','molho','queijo',...recipe(a.recipe).toppings];}
 function missing(p){return p.active?needs(p.active).filter(k=>!p.active.used[k]&&p.stock[k]<1):[];}
 function start(p){const a=p.active;if(!a||a.stage!=='order'||missing(p).length)return false;p.stock.massa--;a.used.massa=true;a.stage='prep';return true;}
