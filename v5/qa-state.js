@@ -1,0 +1,1 @@
+if(!localStorage.getItem(PistachioState.KEY)){const q=PistachioState.fresh();q.fase='crianca';q.look=[2,3];q.medidores.limpeza=45;q.estrelinhas=30;localStorage.setItem(PistachioState.KEY,PistachioState.pack(q));}
