@@ -9,7 +9,7 @@ function splitChildren(node){
  return [node];
 }
 function paginate(root){
- if(!root||root.clientHeight<100)return;
+ if(!root||root.clientHeight<100||root.querySelector(':scope > .pizza-app'))return;
  if(root.id==='main'&&document.body.dataset.tab==='casa'){info.delete(root);return;}
  const active=document.activeElement,restoreFocus=root.contains(active)&&active.matches('input,select,textarea');
  const previous=info.get(root),existing=root.querySelector(':scope > .page-shell');
@@ -34,7 +34,7 @@ function paginate(root){
  if(pages.length===1)shell.classList.add('single-page');
  if(restoreFocus&&active.isConnected&&!active.disabled){const at=pages.findIndex(p=>p.contains(active));if(at>=0)choose(at);active.focus({preventScroll:true});}
 }
-const observer=new MutationObserver(records=>{if(records.some(r=>!r.target.closest?.('#catch-board')&&[...r.addedNodes,...r.removedNodes].some(n=>n.nodeType===1)))schedule();});
+const observer=new MutationObserver(records=>{if(records.some(r=>!r.target.closest?.('#catch-board,.pizza-app')&&[...r.addedNodes,...r.removedNodes].some(n=>n.nodeType===1)))schedule();});
 function observe(){for(const id of ['main','sheet-body']){const el=document.getElementById(id);if(el)observer.observe(el,{childList:true,subtree:true});}}
 function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;observer.disconnect();for(const id of ['main','sheet-body'])paginate(document.getElementById(id));observe();});}
 function height(){const h=window.visualViewport?.height||window.innerHeight;document.body.classList.toggle('keyboard-open',window.innerHeight-h>120);document.documentElement.style.setProperty('--app-height',h+'px');schedule();}

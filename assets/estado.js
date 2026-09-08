@@ -1,11 +1,12 @@
 /* State format and learning generators. No dependency on DOM. */
 (function(root){
 'use strict';
+const Pizza=typeof module!=='undefined'?require('./pizzaria-core.js'):root.PistachioPizza;
 const KEY='pistachio_bela_v4', OLD='pistachio_bela_estado_v1';
 const plain=x=>!!x&&typeof x==='object'&&!Array.isArray(x);
 const int=(x,f=0,max=1e7)=>Number.isFinite(x)?Math.max(0,Math.min(max,Math.floor(x))):f;
 const strings=x=>Array.isArray(x)?[...new Set(x.filter(v=>typeof v==='string').map(v=>v.slice(0,100)))].slice(0,1000):[];
-function fresh(){return {fase:'ovo',nomeAtual:'Pistachio',medidores:{fome:70,carinho:70,limpeza:70,diversao:70},cuidadosTotal:0,diasComCuidado:[],estoque:{maca:3,cenoura:2},estrelinhas:0,roupinhasCompradas:[1,2,3],roupinha:0,look:[],looks:[],familia:[],somLigado:false,ultimaVisita:Date.now(),stats:{math:0,rounds:0,care:0,explore:0,catch:0,recipe:0},album:['fase:ovo'],visitas:[],descobertas:[],preferencias:{},decor:{tema:'casa',itens:['armario','almofada','planta'],owned:['armario','almofada','planta'],positions:{}},mission:{kind:'care',day:'',count:0,claimed:false},mathLevel:1};}
+function fresh(){return {pizzaria:Pizza.fresh(),fase:'ovo',nomeAtual:'Pistachio',medidores:{fome:70,carinho:70,limpeza:70,diversao:70},cuidadosTotal:0,diasComCuidado:[],estoque:{maca:3,cenoura:2},estrelinhas:0,roupinhasCompradas:[1,2,3],roupinha:0,look:[],looks:[],familia:[],somLigado:false,ultimaVisita:Date.now(),stats:{math:0,rounds:0,care:0,explore:0,catch:0,recipe:0},album:['fase:ovo'],visitas:[],descobertas:[],preferencias:{},decor:{tema:'casa',itens:['armario','almofada','planta'],owned:['armario','almofada','planta'],positions:{}},mission:{kind:'care',day:'',count:0,claimed:false},mathLevel:1};}
 function normalize(raw){
  if(!plain(raw)||!['ovo','crianca','adulto'].includes(raw.fase)||!plain(raw.medidores))throw Error('Arquivo de progresso inválido.');
  const d=fresh(), n={...d};
@@ -27,7 +28,7 @@ function normalize(raw){
  if(plain(raw.decor)){n.decor={tema:['casa','jardim','praia','observatorio'].includes(raw.decor.tema)?raw.decor.tema:'casa',itens:strings(raw.decor.itens).slice(0,7),owned:strings(raw.decor.owned),positions:{}};if(plain(raw.decor.positions))for(const [k,v] of Object.entries(raw.decor.positions)){if(/^(casa|jardim|praia|observatorio):[a-z]+$/.test(k)&&plain(v))n.decor.positions[k]={x:int(v.x,10,78),y:int(v.y,45,72)}};}
  if(plain(raw.mission)&&['care','math','explore'].includes(raw.mission.kind))n.mission={kind:raw.mission.kind,day:String(raw.mission.day).slice(0,10),count:int(raw.mission.count,0,99),claimed:raw.mission.claimed===true};
  const decorIds=['armario','almofada','poltrona','estante','planta','mesa','luminaria'];n.decor.owned=n.decor.owned.filter(id=>decorIds.includes(id));n.decor.itens=n.decor.itens.filter(id=>n.decor.owned.includes(id));
- n.mathLevel=int(raw.mathLevel,1,3)||1;return n;
+ n.mathLevel=int(raw.mathLevel,1,3)||1;n.pizzaria=Pizza.normalize(raw.pizzaria);return n;
 }
 function checksum(s){let h=2166136261;for(let i=0;i<s.length;i++)h=Math.imul(h^s.charCodeAt(i),16777619);return (h>>>0).toString(16);}
 function pack(state){const data=normalize(state);return JSON.stringify({format:'pistachio',version:4,savedAt:Date.now(),data,checksum:checksum(JSON.stringify(data))});}
