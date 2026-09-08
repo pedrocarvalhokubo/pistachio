@@ -1,4 +1,4 @@
-# Pistachio · versão 4
+# Pistachio · versão 5
 
 Jogo estático publicado em https://pedrocarvalhokubo.github.io/pistachio/.
 Personagem criado pela Bela; as três artes aprovadas são preservadas em `assets/catalogo.js`.
@@ -26,3 +26,11 @@ O service worker guarda o jogo e as imagens para abertura offline após a instal
 Execute `node tests/estado.test.cjs` para migração, recuperação, conflitos, falha de armazenamento e invariantes da matemática. Não há etapa de build nem dependências em produção. Arquivos são servidos diretamente pelo GitHub Pages.
 
 A versão foi também exercitada em DOM simulado: compras, guarda-roupa, posição de móveis, rodadas completas dos quatro jogos, coleções e gravação. Essa verificação não substitui avaliação visual em um celular real.
+
+## Atualização de interação (v5)
+
+Cuidados exigem movimento: carinho por trajetória, comida arrastada até a boca, banho com cinco áreas de esponja e enxágue. O passeio move o personagem até os objetos antes de coletá-los. Atividades deixam sujeira, sem penalidade por ausência. Cachecol/laço usam desenhos completos vestidos; acessórios de cabeça têm encaixes próprios e substituem os anteriores.
+
+Todas as telas usam altura da viewport e páginas explícitas para listas/menus. Gestos usam Pointer Events, captura, cancelamento e alternativa por teclado. A bandeja de lanches tem navegação horizontal. O estado continua no formato v4 para preservar as cópias existentes.
+
+Teste adicional: `node tests/gestos.test.cjs`.
