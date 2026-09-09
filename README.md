@@ -48,3 +48,9 @@ Em **Explorar → Trabalhar na pizzaria**, clientes pedem seis receitas que apar
 Testes: `node tests/pizzaria.test.cjs`, além das suítes de estado e gestos.
 
 Arte original gerada pela ferramenta de imagens: `assets/pizzaria-cozinha.png` (cozinha artesanal em sálvia, creme e madeira, bancada livre, sem personagens/texto) e `assets/pizzaria-clientes.png` (quatro retratos em grade 2×2, traço de lápis, escalas iguais). Pizza, recheios, forno animado, corte e movimento são renderizados pelo jogo; não dependem de emojis.
+
+## Bancada da pizzaria (v7, 09/09/2026)
+
+A cozinha usa uma bancada contínua de madeira, bandejas de ingredientes, massa com borda irregular e textura, molho, muçarela ralada que derrete ao assar, recheios com volume, forno de tijolos e caixa de entrega. A colher e o ingrediente selecionado acompanham o gesto. O pedido permanece visível durante o preparo. A barra duplicada de título sai durante o trabalho para liberar espaço no celular; Balcão continua disponível.
+
+A revisão mantém receitas, preços e o formato/chave do progresso v4. A captura de ingredientes ignora um segundo dedo enquanto outro gesto está em andamento. Os arquivos recebem versão 7.0 e um cache novo para instalar a revisão sem apagar o salvamento.
