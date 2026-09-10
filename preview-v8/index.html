@@ -1,6 +1,0 @@
-<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Teste isolado da pizzaria</title><link rel="stylesheet" href="assets/jogo.css"><link rel="stylesheet" href="assets/pizzaria.css"><style>dialog[open]{display:flex;flex-direction:column;position:fixed;inset:0;margin:auto;width:100%;height:100dvh;max-height:100dvh}#sheet-body{flex:1;min-height:0;overflow:hidden}</style><dialog open><div class="sheet-head"><h2>Pizzaria · teste isolado</h2></div><div id="sheet-body"><div id="pizza-host"></div></div></dialog><script src="assets/pizzaria-core.js"></script><script src="assets/pizzaria.js"></script><script>
-const choice=new URLSearchParams(location.search).get('recipe')||'portuguesa',key='pistachio_qa_v8_'+choice;
-let state={pizzaria:PistachioPizza.fresh(),medidores:{diversao:50,limpeza:90},estrelinhas:0};
-const saved=localStorage.getItem(key);if(saved)state.pizzaria=PistachioPizza.normalize(JSON.parse(saved));else{PistachioPizza.newOrder(state.pizzaria);state.pizzaria.active.recipe=PistachioPizza.recipe(choice).id;}
-PistachioPizzeria.open({host:document.getElementById('pizza-host'),getState:()=>state,commit:fn=>{fn();localStorage.setItem(key,JSON.stringify(state.pizzaria));},exit:()=>location.reload()});
-</script></html>
